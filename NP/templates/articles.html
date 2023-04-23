@@ -1,0 +1,28 @@
+{% extends 'default.html' %}
+
+{% block title %}Все статьи{% endblock %}
+
+{% block content %}
+{% if articles %}
+    <table>
+           <tr>
+               <td style="width: 450px;">Заголовок</td>
+
+               <td style="width: 200px;">Дата публикации</td>
+
+               <td style="width: 200px;">Превью</td>
+           </tr>
+
+           {% for post in articles %}
+            {% if post.is_article %}
+               <tr>
+                   <td>{{ post.name|truncatechars:50 }}</td>
+                   <td>{{ post.added|date:'d M Y' }}</td>
+                   <td>{{ post.content|truncatechars:20 }}</td>
+               </tr>
+            {% endif %}
+           {% endfor %}
+
+       </table>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'default.html' %}
+
+{% block title %}
+<h1>Профиль {{ user.username }}</h1>
+{% endblock %}
+
+{% block content %}
+{% if user.email %}
+  <p>Адрес электронной почты: {{ user.email }}</p>
+{% endif %}
+
+{% if not is_author %}
+<button> <a href="upgrade/">Стать автором</a> </button>
+{% endif %}
+
+<form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Выйти</button>
+</form>
+
+{% endblock %}

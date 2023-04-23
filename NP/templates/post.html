@@ -1,0 +1,16 @@
+{% extends 'default.html' %}
+
+{% block title %}
+<h3><table>
+
+           <tr>
+               <td style="width: 800px;">{{ post.name }}</td>
+               <td style="width: 150px;">{{ post.added|date:'d M Y' }}</td>
+           </tr>
+
+       </table></h3>
+{% endblock %}
+
+{% block content %}
+<p style="text-align: justify;">{{ post.content }}</p>
+{% endblock content %}
