@@ -79,3 +79,6 @@ class Comment(models.Model):
 class CategorySubscribers(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subscriber = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('category', 'subscriber')

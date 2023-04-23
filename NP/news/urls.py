@@ -1,5 +1,15 @@
 from django.urls import path
-from .views import *
+
+from .views import (
+                    PostsView,
+                    PostView,
+                    PostEdit,
+                    PostDelete,
+                    NewsView,
+                    NewsCreate,
+                    ArticlesView,
+                    ArticleCreate
+                    )
 
 urlpatterns = [
     path('posts/', PostsView.as_view(), name='posts_list'),

@@ -24,14 +24,44 @@ form {
 label {
     margin: 0 10px;
   }
+button {
+  display: inline-block;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #333;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  float: left;
+}
+button a {
+  color: #333;
+  text-decoration: none;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
 </style>
 </head>
 <body>
 
 <div class="bgimg w3-display-container w3-animate-opacity w3-text-grey">
   <div class="w3-display-topleft w3-padding-large w3-xlarge">
-    Logo
+  <button class="w3-button" style="background-color: transparent;"><a href="http://127.0.0.1:8000/posts/">Все публикации</a></button>
+<div class="w3-display-top w3-center">
+    <button class="w3-button" style="background-color: transparent;"><a href="http://127.0.0.1:8000/news/">Новости</a></button>
+    <button class="w3-button" style="background-color: transparent;"><a href="http://127.0.0.1:8000/articles/">Статьи</a></button>
   </div>
+  <div class="w3-display-topright">
+    <button class="w3-button" style="background-color: transparent;"><a href="http://127.0.0.1:8000/accounts/profile">Профиль</a></button>
+  </div>
+</div>
+
   <div class="w3-display-middle">
     <h1 class="w3-jumbo w3-animate-top">{% block title %}{% endblock %}</h1>
     <hr class="w3-border-grey" style="margin:auto;width:40%">

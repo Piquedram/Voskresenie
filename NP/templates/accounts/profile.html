@@ -13,6 +13,8 @@
 <button> <a href="upgrade/">Стать автором</a> </button>
 {% endif %}
 
+<button> <a href="subscribe/">Подписки</a> </button>
+
 <form method="POST" action="{% url 'logout' %}">
     {% csrf_token %}
     <button type="submit">Выйти</button>

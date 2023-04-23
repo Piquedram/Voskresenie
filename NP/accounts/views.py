@@ -1,9 +1,11 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from news.models import Author
+
+from .forms import CategorySubscribersForm
+from news.models import Author, CategorySubscribers, Category
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -24,3 +26,20 @@ def upgrade_me(request):
         authors.user_set.add(user)
     Author.objects.create(user=user)
     return redirect('profile')
+
+
+@login_required
+def subscribe(request):
+    if request.method == 'POST':
+        form = CategorySubscribersForm(request.POST)
+        if form.is_valid():
+            categories = form.cleaned_data['categories']
+            subscriber = request.user
+            CategorySubscribers.objects.filter(subscriber=subscriber).delete()
+            for category_id in categories:
+                category = Category.objects.get(id=category_id)
+                CategorySubscribers.objects.create(category=category, subscriber=subscriber)
+            return redirect('profile')
+    else:
+        form = CategorySubscribersForm()
+    return render(request, 'accounts/subscribe.html', {'form': form})

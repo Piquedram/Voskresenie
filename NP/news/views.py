@@ -1,10 +1,10 @@
-from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
 from .models import Post
 from .filters import PostsFilter
 from .forms import PostForm
-from django.urls import reverse_lazy
-from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class PostsView(ListView):
