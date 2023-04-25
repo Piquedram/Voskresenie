@@ -5,7 +5,6 @@ from django import forms as django_forms
 from news.models import Category
 
 
-
 class BasicSignupForm(forms.SignupForm):
     def save(self, request):
         user = super(BasicSignupForm, self).save(request)

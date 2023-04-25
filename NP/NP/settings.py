@@ -38,14 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'news.apps.NewsConfig',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'news.apps.NewsConfig',
+    'accounts',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'django_filters',
-    'accounts'
 ]
 
 SITE_ID = 1
@@ -165,3 +165,9 @@ EMAIL_HOST_PASSWORD = 'pass'
 DEFAULT_FROM_EMAIL = 'email@yandex.ru'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+CELERY_BROKER_URL = 'redis://default:jzPkpLD9fuSIeLw3dlSSSDxPF1WhStCJ@redis-14017.c78.eu-west-1-2.ec2.cloud.redislabs.com:14017'
+CELERY_RESULT_BACKEND = 'redis://default:jzPkpLD9fuSIeLw3dlSSSDxPF1WhStCJ@redis-14017.c78.eu-west-1-2.ec2.cloud.redislabs.com:14017'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
