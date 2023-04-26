@@ -15,7 +15,7 @@ def post_created(sender, instance, **kwargs):
             rl.append(u['email'])
     rl = list(set(rl))
 
-    sub = 'Здравствуй! Новая статья в твоём любимом разделе!'
+    subj = 'Здравствуй! Новая статья в твоём любимом разделе!'
     msg = ''
     html_msg = loader.render_to_string(
         'new_post_msg.html',
@@ -27,9 +27,9 @@ def post_created(sender, instance, **kwargs):
     )
 
     send_mail(
-        subject=sub,
+        subject=subj,
         message=msg,
-        from_email='email@yandex.ru',
+        from_email='mail@yandex.ru',
         recipient_list=rl,
         fail_silently=False,
         html_message=html_msg

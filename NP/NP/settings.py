@@ -160,9 +160,9 @@ ACCOUNT_EMAIL_VERIFICATION = 'optional'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'email@yandex.ru'
+EMAIL_HOST_USER = 'mail@yandex.ru'
 EMAIL_HOST_PASSWORD = 'pass'
-DEFAULT_FROM_EMAIL = 'email@yandex.ru'
+DEFAULT_FROM_EMAIL = 'mail@yandex.ru'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 

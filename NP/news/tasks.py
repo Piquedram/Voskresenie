@@ -19,12 +19,14 @@ def weekly_notify():
 
         msg = f'Список публикаций:\n'
         for post in Post.objects.filter(category=cat.id, added__gt=datetime.datetime.now()-datetime.timedelta(days=7)):
-            msg += f'{post.name} - http://127.0.0.1:8000/{post.id}\n'
+            msg += f'{post.name} - http://127.0.0.1:8000/posts/{post.id}\n'
+
+        subj = f'Здравствуй! Публикации в категории {cat.name} за прошедшую неделю.'
 
         send_mail(
-            subject=f'Здравствуй! Публикации в категории {cat.name} за прошедшую неделю.',
+            subject=subj,
             message=msg,
-            from_email='email@yandex.ru',
+            from_email='mail@yandex.ru',
             recipient_list=rl,
             fail_silently=True,
         )
