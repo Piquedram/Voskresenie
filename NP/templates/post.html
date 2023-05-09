@@ -1,10 +1,12 @@
 {% extends 'default.html' %}
 
+{% load custom_filters %}
+
 {% block title %}
 <h3><table>
 
            <tr>
-               <td style="width: 800px;">{{ post.name }}</td>
+               <td style="width: 800px;">{{ post.name|censor }}</td>
                <td style="width: 150px;">{{ post.added|date:'d M Y' }}</td>
            </tr>
 
@@ -12,5 +14,5 @@
 {% endblock %}
 
 {% block content %}
-<p style="text-align: justify;">{{ post.content }}</p>
+<p style="text-align: justify;">{{ post.content|censor }}</p>
 {% endblock content %}

@@ -1,5 +1,7 @@
 {% extends 'default.html' %}
 
+{% load custom_filters %}
+
 {% block title %}Все публикации{% endblock %}
 
 {% block content %}
@@ -20,9 +22,9 @@
 
            {% for post in posts %}
            <tr>
-               <td>{{ post.name|truncatechars:50 }}</td>
+               <td>{{ post.name|truncatechars:50|censor }}</td>
                <td>{{ post.added|date:'d M Y' }}</td>
-               <td>{{ post.content|truncatechars:20 }}</td>
+               <td>{{ post.content|truncatechars:20|censor }}</td>
            </tr>
            {% endfor %}
 
