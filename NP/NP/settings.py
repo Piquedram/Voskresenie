@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -149,6 +150,10 @@ LOGOUT_REDIRECT_URL = 'posts_list'
 LOGIN_URL = '/accounts/login/'
 '''
 
+ADMINS = [
+    ('admin', 'administrator@example.com'),
+]
+
 ACCOUNT_FORMS = {'signup': 'accounts.forms.BasicSignupForm'}
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -164,7 +169,7 @@ EMAIL_HOST_USER = 'mail@yandex.ru'
 EMAIL_HOST_PASSWORD = 'pass'
 DEFAULT_FROM_EMAIL = 'mail@yandex.ru'
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CELERY_BROKER_URL = \
     'redis://default:jzPkpLD9fuSIeLw3dlSSSDxPF1WhStCJ@redis-14017.c78.eu-west-1-2.ec2.cloud.redislabs.com:14017'
@@ -173,3 +178,104 @@ CELERY_RESULT_BACKEND = \
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'simple': {
+            'format': '{asctime} - {levelname} - {message}',
+            'style': '{',
+        },
+        'simple_path': {
+            'format': '{asctime} - {levelname} - {message} - {pathname}',
+            'style': '{',
+        },
+        'simple_path_stack': {
+            'format': '{asctime} - {levelname} - {message} - {pathname} - {exc_info}',
+            'style': '{',
+        },
+        'simple_module': {
+            'format': '{asctime} - {levelname} - {module} - {message}',
+            'style': '{',
+        },
+    },
+
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true', ],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false', ],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'simple_path'
+        },
+        'file_general': {
+            'level': 'INFO',
+            'filters': ['require_debug_false', ],
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/general.log'),
+            'formatter': 'simple_module',
+        },
+        'file_security': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/security.log'),
+            'formatter': 'simple_module',
+        },
+        'file_errors': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/errors.log'),
+            'formatter': 'simple_path_stack',
+        }
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file_general'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['file_errors', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['file_errors', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.template': {
+            'handlers': ['file_errors', ],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['file_errors', ],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['file_security', ],
+            'level': 'INFO',
+            'propagate': False,
+        },
+
+    }
+
+}
